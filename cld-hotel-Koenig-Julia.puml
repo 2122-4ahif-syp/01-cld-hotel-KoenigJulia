@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class Raum{
+    -int nummer
+    -int personen
+    Kategorie: kategorie
+}
+
+class Kategorie{
+    -int id
+    -string bezeichnung
+}
+
+class Mitarbeiter{
+    -int svnr
+    -string name
+    -string adresse
+}
+
+class Raumpfleger{
+    Mitarbeiter: mitarbeiter
+    Raum:raum
+}
+
+enum Fach{
+    Sauna
+    Masseur
+    Swimmingpool
+    Küche
+}
+
+class Betreuer{
+    Mitarbeiter: mitarbeiter
+    Fach:fach
+}
+
+class Gast{
+    -int kundennr
+    -string name
+    -string adresse
+}
+
+class Buchung{
+    Raum:raum
+    Gast:gast
+    LocalDate anreisedatum
+    LocalDate abreisedatum
+    -int anzahlLeistungspakete
+}
+
+class Leistungspaket{
+    -string bezeichnung
+    -double preis
+}
+
+class LeistungspaketBetreuer{
+    Leistungspaket:leistungspaket
+    Betreuer:betreuer
+}
+
+Raum "*" -> "1" Kategorie
+Gast "*"--"*" Raum
+(Gast,Raum)..Buchung
+Mitarbeiter "1"-l->"*" Betreuer
+Mitarbeiter "1"-->"*" Raumpfleger
+Raum "*"<--"1" Raumpfleger
+Betreuer "*" --> "1" Fach
+Leistungspaket "*"--"1..*" Betreuer
+(Leistungspaket,Betreuer) .. LeistungspaketBetreuer
+@enduml
