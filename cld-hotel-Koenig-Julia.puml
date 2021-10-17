@@ -44,8 +44,8 @@ class Gast{
 class Buchung{
     Raum:raum
     Gast:gast
-    LocalDate anreisedatum
-    LocalDate abreisedatum
+    -LocalDate anreisedatum
+    -LocalDate abreisedatum
     -int anzahlLeistungspakete
 }
 
